@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import '../../database.dart';
 
@@ -17,6 +18,12 @@ class _QueryScreenState extends State<QueryScreen> {
   final TextEditingController _insertTextController = TextEditingController();
   final TextEditingController _updateIdController = TextEditingController();
   final TextEditingController _updateNameController = TextEditingController();
+
+  // void clear_insertTextController() {
+  //   setState(() {
+  //     _insertTextController.clear();
+  //   });
+  // }
 
   @override
   void dispose() {
@@ -98,10 +105,25 @@ class _QueryScreenState extends State<QueryScreen> {
                             child: TextField(
                               obscureText: false,
                               controller: _insertTextController,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
                                 labelText: 'Enter Name',
+                                suffixIcon: _insertTextController.text.isEmpty
+                                    ? null
+                                    : IconButton(
+                                        onPressed: () => setState(
+                                          () {
+                                            _insertTextController.clear();
+                                          },
+                                        ), //clear_insertTextController(),
+                                        icon: const Icon(Icons.clear),
+                                      ),
                               ),
+                              onChanged: (value) {
+                                setState(
+                                  () {},
+                                );
+                              },
                             ),
                           ),
                           const Gap(10),
@@ -236,8 +258,8 @@ class _QueryScreenState extends State<QueryScreen> {
                     _queryAll();
                   });
                 },
-                icon: const Icon(
-                  Icons.delete_forever_rounded,
+                icon: const FaIcon(
+                  FontAwesomeIcons.trashCan,
                   size: 30,
                 )),
           )
